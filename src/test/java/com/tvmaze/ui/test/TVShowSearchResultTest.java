@@ -15,6 +15,5 @@ public class TVShowSearchResultTest extends AbstractTest{
     public void testSearchResultContainsTVShow(String tvShowPartOfName) {
         SearchResultStep searchResultStep=new SearchResultStep().openSearchResultByRequest(tvShowPartOfName);
         Assert.assertTrue(searchResultStep.isSearchResultListContainTVShow(tvShowPartOfName));
-
     }
 }
