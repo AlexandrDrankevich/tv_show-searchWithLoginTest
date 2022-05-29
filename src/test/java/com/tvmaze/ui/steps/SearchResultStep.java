@@ -17,7 +17,6 @@ public class SearchResultStep extends SearchResultPage {
                 .typeSearchRequestAndSend(searchRequest);
         logger.info("Part of TVShow name: " + searchRequest);
         return this;
-
     }
 
     public List<TVShow> createSearchResultList() {

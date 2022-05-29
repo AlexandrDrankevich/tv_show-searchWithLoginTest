@@ -15,5 +15,10 @@ public class AbstractTest {
     @AfterClass
     public void tearDown() {
         DriverSingleton.closeDriver();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
