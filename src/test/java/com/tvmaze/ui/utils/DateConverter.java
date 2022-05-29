@@ -1,6 +1,6 @@
 package com.tvmaze.ui.utils;
 
-public class DateSelection {
+public class DateConverter {
     public static int monthToInt(String month){
         switch (month){
             case "January": return 1;
