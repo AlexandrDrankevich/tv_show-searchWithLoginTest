@@ -9,7 +9,7 @@ public class ShowCalendarTest extends AbstractTest {
     @Test
     public void testCalendarContainsShowOnDate(){
         User user = UserCreator.createUser();
-        new HomePage().openPage().clickLoginButton().authorize(user);
+        new HomePage().openPage().clickLoginButton().authorize(user).clickCalendarButton().selectShowCalendarFilter();
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
