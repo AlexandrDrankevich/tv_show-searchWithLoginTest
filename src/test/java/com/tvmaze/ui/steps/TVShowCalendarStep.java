@@ -32,18 +32,17 @@ public class TVShowCalendarStep extends TVShowCalendarPage {
         List<WebElement> tvShowElements = driver.findElements(By.xpath(ShowLocator));
         tvShowList = new ArrayList<>();
         for (WebElement showElement : tvShowElements) {
-            String showName = showElement.findElement(By.xpath("./div/span/a")).getText();
+            String tvShowName = showElement.findElement(By.xpath("./div/span/a")).getText();
             String episodeName = showElement.findElement(By.xpath("./div/a")).getAttribute("title");
-            String episodeNumber = showElement.findElement(By.xpath("./div/a")).getText();
-            tvShowList.add(new TVShow(showName, episodeName, episodeNumber));
+            tvShowList.add(new TVShow(tvShowName, episodeName));
         }
         logger.info(tvShowList);
         return tvShowList;
     }
 
     public boolean isCalendarOnDateContainsTVShow(String tvShow) {
-        if(tvShowList==null){
-            tvShowList=createShowList();
+        if (tvShowList == null) {
+            tvShowList = createShowList();
         }
         return tvShowList.stream().anyMatch(s -> s.getShowName().contains(tvShow));
     }
