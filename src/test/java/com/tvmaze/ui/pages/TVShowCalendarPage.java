@@ -1,6 +1,6 @@
 package com.tvmaze.ui.pages;
 
-import com.tvmaze.ui.entity.Show;
+import com.tvmaze.ui.entity.TVShow;
 import com.tvmaze.ui.utils.DateConverter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowCalendarPage extends AbstractPage {
+public class TVShowCalendarPage extends AbstractPage {
     @FindBy(xpath = "//*[@name='filter']")
     private WebElement selectFilter;
     @FindBy(xpath = "//*[@value='popular']")
@@ -22,15 +22,15 @@ public class ShowCalendarPage extends AbstractPage {
     private WebElement nextMonth;
     private String patternShowLocator = "//div[contains(@class,'%s-%s')]//li";
     String month = "May";
-    int date = 26;
+    int date = 23;
 
-    public ShowCalendarPage selectShowCalendarFilter() {
+    public TVShowCalendarPage selectShowCalendarFilter() {
         selectFilter.click();
         waitForVisibilityOfElement(filterPopular).click();
         return this;
     }
 
-    public ShowCalendarPage chooseDate() {
+    public TVShowCalendarPage chooseDate() {
         int searchingMonth = DateConverter.monthToInt(month);
         int presentMonth = DateConverter.monthToInt(presentMonthName.getText());
         if (searchingMonth == presentMonth) {
@@ -48,16 +48,18 @@ public class ShowCalendarPage extends AbstractPage {
         return this;
     }
 
-    public List<Show> createShowList() {
+    public List<TVShow> createShowList() {
+
         String ShowLocator = String.format(patternShowLocator, DateConverter.monthToInt(month), date);
         List<WebElement> showElements = driver.findElements(By.xpath(ShowLocator));
-        List<Show> showsList = new ArrayList<>();
+        List<TVShow> showsList = new ArrayList<>();
         for (WebElement showElement : showElements) {
-            String showName = showElement.findElement(By.xpath(ShowLocator + "/div/span/a")).getText();
-            String episodeName = showElement.findElement(By.xpath(ShowLocator + "/div/a")).getText();
-            showsList.add(new Show(showName, episodeName));
+            String showName = showElement.findElement(By.xpath("./div/span/a")).getText();
+            String episodeName = showElement.findElement(By.xpath("./div/a")).getAttribute("title");
+            String episodeNumber = showElement.findElement(By.xpath("./div/a")).getText();
+            showsList.add(new TVShow(showName, episodeName, episodeNumber));
         }
-        System.out.println(showsList);
+        logger.info(showsList);
         return showsList;
     }
 

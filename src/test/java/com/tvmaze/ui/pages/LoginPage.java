@@ -21,8 +21,8 @@ public class LoginPage extends AbstractPage {
         return this;
     }
 
-    public ShowCalendarPage clickCalendarButton() {
+    public TVShowCalendarPage clickCalendarButton() {
         calendarButton.click();
-        return new ShowCalendarPage();
+        return new TVShowCalendarPage();
     }
 }
