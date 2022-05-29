@@ -1,26 +1,19 @@
 package com.tvmaze.ui.test;
 
-import com.tvmaze.ui.entity.User;
-import com.tvmaze.ui.pages.HomePage;
-import com.tvmaze.ui.utils.UserCreator;
+import com.tvmaze.ui.steps.TVShowCalendarStep;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class TVShowCalendarTest extends AbstractTest {
-    @Test
-    public void testCalendarContainsShowOnDate(){
-        User user = UserCreator.createUser();
-        new HomePage().openPage()
-                .clickLoginButton()
-                .authorize(user)
-                .clickCalendarButton()
-                .selectShowCalendarFilter()
-                .chooseDate()
-                .createShowList();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    @DataProvider(name = "calendarDateAndTVShowName")
+    public static Object[][] provideDateAndName() {
+        return new Object[][]{{"25 May", "The Flash"}, {"07 April", "Walker"}, {"12 June", "Evil"}};
+    }
 
+    @Test(dataProvider = "calendarDateAndTVShowName")
+    public void testCalendarContainsShowOnDate(String date, String tvShowName) {
+        TVShowCalendarStep tvShowCalendarStep = new TVShowCalendarStep().openTVSHowCalendarOnDate(date);
+        Assert.assertTrue(tvShowCalendarStep.isCalendarOnDateContainsTVShow(tvShowName));
     }
 }

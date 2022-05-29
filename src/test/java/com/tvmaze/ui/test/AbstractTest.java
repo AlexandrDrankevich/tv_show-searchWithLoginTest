@@ -1,11 +1,18 @@
 package com.tvmaze.ui.test;
 
 import com.tvmaze.ui.driver.DriverSingleton;
-import org.testng.annotations.AfterMethod;
+import com.tvmaze.ui.steps.AuthorizeStep;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 
 public class AbstractTest {
 
-    @AfterMethod
+    @BeforeClass
+    public void logIn() {
+        AuthorizeStep.logIn();
+    }
+
+    @AfterClass
     public void tearDown() {
         DriverSingleton.closeDriver();
     }

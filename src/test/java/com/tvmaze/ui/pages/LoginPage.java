@@ -11,18 +11,11 @@ public class LoginPage extends AbstractPage {
     private WebElement inputPassword;
     @FindBy(xpath = "//button[text()='Login']")
     private WebElement loginButton;
-    @FindBy(xpath = "//*[@href='/calendar']")
-    private WebElement calendarButton;
 
-    public LoginPage authorize(User user) {
+    public AuthorizedHomePage authorize(User user) {
         inputUserName.sendKeys(user.getUsername());
         inputPassword.sendKeys(user.getPassword());
         loginButton.click();
-        return this;
+        return new AuthorizedHomePage();
     }
-
-    public TVShowCalendarPage clickCalendarButton() {
-        calendarButton.click();
-        return new TVShowCalendarPage();
-    }
-}
+  }
