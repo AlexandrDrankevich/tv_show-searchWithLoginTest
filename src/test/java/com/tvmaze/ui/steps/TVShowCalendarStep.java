@@ -17,6 +17,7 @@ public class TVShowCalendarStep extends TVShowCalendarPage {
 
 
     public TVShowCalendarStep openTVSHowCalendarOnDate(String date) {
+        logger.info(date);
         String[] split = date.split(" ");
         this.date = split[0];
         this.month = split[1];
