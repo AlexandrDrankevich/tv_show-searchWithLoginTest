@@ -1,8 +1,13 @@
 package com.tvmaze.ui.pages;
 
+import com.tvmaze.ui.entity.Show;
 import com.tvmaze.ui.utils.DateConverter;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShowCalendarPage extends AbstractPage {
     @FindBy(xpath = "//*[@name='filter']")
@@ -15,9 +20,9 @@ public class ShowCalendarPage extends AbstractPage {
     private WebElement previousMonth;
     @FindBy(xpath = "//div[contains(@class,'text-right')]/a")
     private WebElement nextMonth;
-
-    String month = "August";
-    int date = 28;
+    private String patternShowLocator = "//div[contains(@class,'%s-%s')]//li";
+    String month = "May";
+    int date = 26;
 
     public ShowCalendarPage selectShowCalendarFilter() {
         selectFilter.click();
@@ -41,6 +46,19 @@ public class ShowCalendarPage extends AbstractPage {
             }
         }
         return this;
+    }
+
+    public List<Show> createShowList() {
+        String ShowLocator = String.format(patternShowLocator, DateConverter.monthToInt(month), date);
+        List<WebElement> showElements = driver.findElements(By.xpath(ShowLocator));
+        List<Show> showsList = new ArrayList<>();
+        for (WebElement showElement : showElements) {
+            String showName = showElement.findElement(By.xpath(ShowLocator + "/div/span/a")).getText();
+            String episodeName = showElement.findElement(By.xpath(ShowLocator + "/div/a")).getText();
+            showsList.add(new Show(showName, episodeName));
+        }
+        System.out.println(showsList);
+        return showsList;
     }
 
 }
