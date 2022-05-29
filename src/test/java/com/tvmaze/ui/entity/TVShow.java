@@ -5,7 +5,6 @@ public class TVShow {
     private String episodeName;
     private String episodeNumber;
 
-
     public TVShow(String showName, String episodeName, String episodeNumber) {
         this.showName = showName;
         this.episodeName = episodeName;
@@ -27,7 +26,7 @@ public class TVShow {
     @Override
     public String toString() {
         return "Show{ name: " + showName + " " +
-                ", episode: " + episodeName + " "+episodeNumber+
+                ", episode: " + episodeName + " " + episodeNumber +
                 '}';
     }
 }
