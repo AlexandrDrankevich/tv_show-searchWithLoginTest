@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class TVShowCalendarTest extends AbstractTest {
     @DataProvider(name = "calendarDateAndTVShowName")
     public static Object[][] provideDateAndName() {
-        return new Object[][]{{"25 May", "The Flash"}, {"07 April", "Walker"}, {"12 June", "Evil"}};
+        return new Object[][]{{"25 May", "The Flash"}, {"07 April", "Walker"}, {"12 June", "Barry"}};
     }
 
     @Test(dataProvider = "calendarDateAndTVShowName")

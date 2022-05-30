@@ -20,6 +20,7 @@ public class BaseClient {
     private int statusCode;
     private String body;
     private static final Logger logger = LogManager.getLogger();
+    private List<String> tvShowList;
 
     public BaseClient() {
         client = HttpClientBuilder.create().build();
@@ -31,11 +32,21 @@ public class BaseClient {
         } catch (IOException e) {
             logger.warn(e.getMessage());
         }
+        logger.info("Request: "+url);
+        getStatusCode();
     }
 
     public int getStatusCode() {
         statusCode = response.getStatusLine().getStatusCode();
-        logger.info(statusCode);
+        if (statusCode != 200) {
+            logger.error("An error code received. Server returned "
+                    + statusCode + " " + response.getStatusLine()
+                    .getReasonPhrase());
+            throw new RuntimeException("An error code received. Server returned "
+                    + statusCode + " " + response.getStatusLine()
+                    .getReasonPhrase());
+        }
+        logger.info("StatusCodes: " + statusCode);
         return statusCode;
     }
 
@@ -48,14 +59,26 @@ public class BaseClient {
         return body;
     }
 
-    public <T> List<T> getListBodyValuesByKey(String key) {
+    public List<String> getTVShowList() {
+        body = getBody();
         JSONArray jsonArray = new JSONArray(body);
-        List<T> valuesList = new ArrayList<>();
+        List<JSONObject> jsonObjectList = new ArrayList<>();
         for (Object jsonObject : jsonArray) {
-            valuesList.add((T) ((JSONObject) jsonObject).get(key));
+            jsonObjectList.add(((JSONObject) jsonObject).getJSONObject("show"));
         }
-        logger.info(valuesList);
-        return valuesList;
+        tvShowList=new ArrayList<>();
+        for (JSONObject jsonObject : jsonObjectList) {
+            tvShowList.add(jsonObject.getString("name"));
+        }
+        logger.info("TVShow names: "+tvShowList);
+        return tvShowList;
+    }
+
+    public boolean isResponseContainTVShow(String tvShow) {
+        if (tvShowList == null) {
+            tvShowList = getTVShowList();
+        }
+        return tvShowList.stream().anyMatch(s -> s.contains(tvShow));
     }
 
     public void closeClient() {
@@ -65,5 +88,4 @@ public class BaseClient {
             logger.warn(e.getMessage());
         }
     }
-
 }
