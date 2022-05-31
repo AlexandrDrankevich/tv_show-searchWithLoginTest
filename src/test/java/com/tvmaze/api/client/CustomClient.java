@@ -1,5 +1,6 @@
 package com.tvmaze.api.client;
 
+import com.tvmaze.api.utils.BodyProcessing;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -7,22 +8,18 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class BaseClient {
+public class CustomClient {
     private CloseableHttpClient client;
     private CloseableHttpResponse response;
     private int statusCode;
     private String body;
-    private static final Logger logger = LogManager.getLogger();
-    private List<String> tvShowList;
+    public static final Logger logger = LogManager.getLogger();
 
-    public BaseClient() {
+
+    public CustomClient() {
         client = HttpClientBuilder.create().build();
     }
 
@@ -32,7 +29,7 @@ public class BaseClient {
         } catch (IOException e) {
             logger.warn(e.getMessage());
         }
-        logger.info("Request: "+url);
+        logger.info("Request: " + url);
         getStatusCode();
     }
 
@@ -59,26 +56,8 @@ public class BaseClient {
         return body;
     }
 
-    public List<String> getTVShowList() {
-        body = getBody();
-        JSONArray jsonArray = new JSONArray(body);
-        List<JSONObject> jsonObjectList = new ArrayList<>();
-        for (Object jsonObject : jsonArray) {
-            jsonObjectList.add(((JSONObject) jsonObject).getJSONObject("show"));
-        }
-        tvShowList=new ArrayList<>();
-        for (JSONObject jsonObject : jsonObjectList) {
-            tvShowList.add(jsonObject.getString("name"));
-        }
-        logger.info("TVShow names: "+tvShowList);
-        return tvShowList;
-    }
-
     public boolean isResponseContainTVShow(String tvShow) {
-        if (tvShowList == null) {
-            tvShowList = getTVShowList();
-        }
-        return tvShowList.stream().anyMatch(s -> s.contains(tvShow));
+        return new BodyProcessing().isResponseContainTVShow(tvShow, getBody());
     }
 
     public void closeClient() {
