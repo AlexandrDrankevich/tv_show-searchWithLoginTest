@@ -10,5 +10,7 @@ public class SearchResultPage extends AbstractPage{
     protected List<WebElement> tvShowCardList;
     protected String tvShowNamePathInCard="//*[@id='w0']//*[@class='showname']//a";
     protected String episodeNamePathInCard="//*[@id='w0']//*[@class='auto cell episode-info']//a";
+    @FindBy(xpath = "//*[@class='callout primary']/p")
+    protected WebElement searchResultMessageField;
 
 }

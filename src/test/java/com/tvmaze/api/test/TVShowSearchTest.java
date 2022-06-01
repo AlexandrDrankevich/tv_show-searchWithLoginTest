@@ -14,6 +14,6 @@ public class TVShowSearchTest extends AbstractTest {
     public void testGetSearchResponseContainsTVShow(String tvShowPartOfName) {
         String url = "https://api.tvmaze.com/search/shows?q=" + tvShowPartOfName;
         client.sendGet(url);
-        Assert.assertTrue(client.isResponseContainTVShow(tvShowPartOfName));
+        Assert.assertTrue(client.isResponseContainsTVShow(tvShowPartOfName));
     }
 }

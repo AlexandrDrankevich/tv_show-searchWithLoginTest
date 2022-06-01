@@ -14,7 +14,7 @@ public class TVShowCalendarTest extends AbstractTest{
     public void testGetResponseContainsShowOnDate(String date, String tvShowName) {
         String url ="https://api.tvmaze.com/schedule?country=US&date="+ date;
         client.sendGet(url);
-        Assert.assertTrue(client.isResponseContainTVShow(tvShowName));
+        Assert.assertTrue(client.isResponseContainsTVShow(tvShowName));
     }
 
     }

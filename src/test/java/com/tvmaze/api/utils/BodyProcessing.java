@@ -29,7 +29,7 @@ public class BodyProcessing {
         return tvShowList;
     }
 
-    public static boolean isResponseContainTVShow(String tvShow, String body) {
+    public static boolean isResponseContainsTVShow(String tvShow, String body) {
         return getTVShowNameList(body).stream().anyMatch(s -> s.contains(tvShow));
     }
 }

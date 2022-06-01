@@ -11,6 +11,7 @@ import java.util.List;
 
 public class SearchResultStep extends SearchResultPage {
     List<TVShow> tvShowList;
+    String expectedSearchResultMassage="Pardon us, but no shows or people matching your query were found";
 
     public SearchResultStep openSearchResultByRequest(String searchRequest) {
         new AuthorizedHomePage()
@@ -35,11 +36,14 @@ public class SearchResultStep extends SearchResultPage {
         return tvShowList;
     }
 
-    public boolean isSearchResultListContainTVShow(String tvShow) {
+    public boolean isSearchResultListContainsTVShow(String tvShow) {
         if (tvShowList == null) {
             tvShowList = createSearchResultList();
         }
         return tvShowList.stream().anyMatch(s -> s.getShowName().contains(tvShow));
+    }
+    public boolean isSearchResultContainsExpectedMessage() {
+        return searchResultMessageField.getText().contains(expectedSearchResultMassage);
     }
 }
 

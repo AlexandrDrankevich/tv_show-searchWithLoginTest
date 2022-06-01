@@ -56,8 +56,8 @@ public class CustomClient {
         return body;
     }
 
-    public boolean isResponseContainTVShow(String tvShow) {
-        return BodyProcessing.isResponseContainTVShow(tvShow, getBody());
+    public boolean isResponseContainsTVShow(String tvShow) {
+        return BodyProcessing.isResponseContainsTVShow(tvShow, getBody());
     }
 
     public void closeClient() {
