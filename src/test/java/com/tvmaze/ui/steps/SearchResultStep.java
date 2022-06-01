@@ -43,6 +43,7 @@ public class SearchResultStep extends SearchResultPage {
         return tvShowList.stream().anyMatch(s -> s.getShowName().contains(tvShow));
     }
     public boolean isSearchResultContainsExpectedMessage() {
+        logger.info("Message: "+ searchResultMessageField.getText());
         return searchResultMessageField.getText().contains(expectedSearchResultMassage);
     }
 }

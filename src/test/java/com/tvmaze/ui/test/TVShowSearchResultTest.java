@@ -19,7 +19,7 @@ public class TVShowSearchResultTest extends AbstractTest{
 
     @DataProvider(name = "invalidRequest")
     public static Object[] provideInvalidRequest() {
-        return new Object[]{"rgregrgr"," ","llnb"};
+        return new Object[]{"rgregrgr","%%","llnb"};
     }
 
     @Test(dataProvider = "invalidRequest")
