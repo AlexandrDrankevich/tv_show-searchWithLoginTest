@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test Suite API">
+    <test name="API Smoke Test">
+        <classes>
+            <class name="com.tvmaze.api.test.TVShowSearchTest"/>
+            <class name="com.tvmaze.api.test.TVShowSingleSearchTest"/>
+            <class name="com.tvmaze.api.test.TVShowCalendarTest"/>
+        </classes>
+    </test>
+</suite>
