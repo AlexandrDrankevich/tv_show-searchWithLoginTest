@@ -9,6 +9,12 @@ public class AuthorizedHomePage extends AbstractPage {
     private WebElement calendarButton;
     @FindBy(id = "searchform-q")
     private WebElement searchInput;
+    @FindBy(id="user-menu")
+    private WebElement buttonUserMenu;
+    @FindBy(xpath = "//*[@id='user-thumb']//h3")
+    private WebElement userName;
+    @FindBy(xpath = "//*[contains(@href,'logout')]")
+    private WebElement buttonLogOut;
 
     public TVShowCalendarPage clickCalendarButton() {
         calendarButton.click();
@@ -19,5 +25,13 @@ public class AuthorizedHomePage extends AbstractPage {
         searchInput.clear();
         searchInput.sendKeys(searchRequest, Keys.ENTER);
         return new SearchResultPage();
+    }
+    public String getAuthorizedUserName(){
+        buttonUserMenu.click();
+        return waitForVisibilityOfElement(userName).getText();
+    }
+    public void logOut(){
+        buttonUserMenu.click();
+        waitForVisibilityOfElement(buttonLogOut).click();
     }
 }

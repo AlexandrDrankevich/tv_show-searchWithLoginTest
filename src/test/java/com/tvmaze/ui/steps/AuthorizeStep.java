@@ -1,13 +1,12 @@
 package com.tvmaze.ui.steps;
 
 import com.tvmaze.ui.entity.User;
+import com.tvmaze.ui.pages.AuthorizedHomePage;
 import com.tvmaze.ui.pages.HomePage;
-import com.tvmaze.ui.utils.UserCreator;
 
 public class AuthorizeStep {
-    public static void logIn() {
-        User user = UserCreator.createUser();
-        new HomePage().openPage()
+    public static AuthorizedHomePage logIn(User user) {
+        return new HomePage().openPage()
                 .clickLoginButton()
                 .authorize(user);
     }
