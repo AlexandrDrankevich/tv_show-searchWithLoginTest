@@ -15,7 +15,7 @@ public class AbstractTest {
         AuthorizeStep.logIn();
     }
 
-    @AfterTest
+    @AfterTest(alwaysRun = true)
     public void tearDown() {
         DriverSingleton.closeDriver();
     }
