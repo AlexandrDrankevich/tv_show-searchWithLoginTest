@@ -15,5 +15,6 @@ public class TVShowCalendarTest extends AbstractTest {
     public void testCalendarContainsShowOnDate(String date, String tvShowName) {
         TVShowCalendarStep tvShowCalendarStep = new TVShowCalendarStep().openTVSHowCalendarOnDate(date);
         Assert.assertTrue(tvShowCalendarStep.isCalendarOnDateContainsTVShow(tvShowName));
+
     }
 }
