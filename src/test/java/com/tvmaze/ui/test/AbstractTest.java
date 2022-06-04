@@ -2,13 +2,11 @@ package com.tvmaze.ui.test;
 
 import com.tvmaze.ui.driver.DriverSingleton;
 import com.tvmaze.ui.steps.AuthorizeStep;
-import com.tvmaze.ui.utils.TestListener;
 import com.tvmaze.ui.utils.UserCreator;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
 
-@Listeners({TestListener.class})
+
 public class AbstractTest {
 
     @BeforeClass
@@ -20,7 +18,7 @@ public class AbstractTest {
     public void tearDown() {
         DriverSingleton.closeDriver();
         try {
-            Thread.sleep(4000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
